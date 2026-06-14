@@ -2,7 +2,6 @@
 
 import time
 
-
 from src.fetchers.hackernews_fetcher import HackerNewsFetcher
 from src.models.article import Article
 
@@ -26,3 +25,12 @@ async def test_fetch_concurrent():
     elapsed = time.time() - start
     assert elapsed < 5.0, f"Fetch too slow: {elapsed:.2f}s"
     assert len(articles) > 0
+
+
+async def test_hackernews_fetcher_uses_transformer():
+    """Verify fetcher returns Articles produced by ArticleTransformer."""
+    fetcher = HackerNewsFetcher()
+    articles = await fetcher.fetch(limit=5)
+    assert len(articles) > 0
+    assert all(hasattr(a, "title") for a in articles)
+    assert all(isinstance(a, Article) for a in articles)
