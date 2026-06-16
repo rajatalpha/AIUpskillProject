@@ -1,7 +1,7 @@
 """Fetch from GitHub Trending."""
 
-from typing import List
 from datetime import datetime
+from typing import List
 
 import aiohttp
 from bs4 import BeautifulSoup
@@ -9,8 +9,8 @@ from bs4 import BeautifulSoup
 from src.fetchers.base_fetcher import BaseFetcher
 from src.models.article import Article
 from src.storage.markdown_storage import MarkdownStorage
-from src.transformers.article_transformer import ArticleTransformer
 from src.strategies.rate_limit_strategy import RateLimitStrategy
+from src.transformers.article_transformer import ArticleTransformer
 
 
 class GitHubTrendingFetcher(BaseFetcher):
@@ -47,31 +47,31 @@ class GitHubTrendingFetcher(BaseFetcher):
         if not html:
             return []
 
-        soup = BeautifulSoup(html, 'html.parser')
-        repos = soup.select('article.Box-row')
+        soup = BeautifulSoup(html, "html.parser")
+        repos = soup.select("article.Box-row")
 
         articles = []
         for repo in repos[:20]:  # Top 20
             # Extract repo info
-            title_elem = repo.select_one('h2 a')
+            title_elem = repo.select_one("h2 a")
             if not title_elem:
                 continue
 
-            title = title_elem.text.strip().replace('\n', '').replace(' ', '')
-            href = title_elem['href']
+            title = title_elem.text.strip().replace("\n", "").replace(" ", "")
+            href = title_elem["href"]
             url = f"https://github.com{href}"
 
-            description_elem = repo.select_one('p')
-            description = description_elem.text.strip() if description_elem else ''
+            description_elem = repo.select_one("p")
+            description = description_elem.text.strip() if description_elem else ""
 
-            stars_elem = repo.select_one('span.d-inline-block.float-sm-right')
-            stars = stars_elem.text.strip() if stars_elem else '0'
+            stars_elem = repo.select_one("span.d-inline-block.float-sm-right")
+            stars = stars_elem.text.strip() if stars_elem else "0"
 
             article = Article(
                 title=title,
                 url=url,
                 published_at=datetime.now(),
-                source='github_trending',
+                source="github_trending",
                 summary=f"{description} (⭐ {stars})",
                 score=0,
             )

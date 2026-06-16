@@ -1,5 +1,7 @@
 """Smoke test for the full fetch-and-save workflow (Step 5)."""
+
 import asyncio
+
 from src.fetchers.hackernews_fetcher import HackerNewsFetcher
 
 

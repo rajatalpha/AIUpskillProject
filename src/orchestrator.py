@@ -3,11 +3,11 @@
 import asyncio
 from typing import List
 
-from src.fetchers.base_fetcher import BaseFetcher
 from src.factories.fetcher_factory import FetcherFactory
+from src.fetchers.base_fetcher import BaseFetcher
+from src.models.article import Article
 from src.storage.base_storage import ArticleStorage
 from src.storage.markdown_storage import MarkdownStorage
-from src.models.article import Article
 from src.transformers.article_transformer import ArticleTransformer
 
 
@@ -40,7 +40,9 @@ class FetchOrchestrator:
             if source_type == "rss":
                 kwargs["feed_url"] = "https://hnrss.org/frontpage"
             self.fetchers.append(
-                FetcherFactory.create(source_type, self.transformer, self.storage, **kwargs)
+                FetcherFactory.create(
+                    source_type, self.transformer, self.storage, **kwargs
+                )
             )
 
     async def fetch_all(self) -> List[Article]:

@@ -17,7 +17,6 @@ import os
 import sys
 from pathlib import Path
 
-
 REQUIRED_PYTHON = (3, 11)
 REQUIRED_PACKAGES = [
     "aiohttp",

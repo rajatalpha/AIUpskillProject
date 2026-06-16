@@ -6,10 +6,10 @@ from datetime import datetime
 
 import pytest
 
+from src.factories.fetcher_factory import FetcherFactory
 from src.fetchers.base_fetcher import BaseFetcher
 from src.fetchers.github_trending_fetcher import GitHubTrendingFetcher
 from src.fetchers.hackernews_fetcher import HackerNewsFetcher
-from src.factories.fetcher_factory import FetcherFactory
 from src.models.article import Article
 from src.strategies.rate_limit_strategy import SemaphoreStrategy, TokenBucketStrategy
 from src.transformers.article_transformer import ArticleTransformer
@@ -127,4 +127,3 @@ def test_fetcher_rate_limiter_is_strategy():
 
     assert isinstance(fetcher.rate_limiter, TokenBucketStrategy)
     assert fetcher.rate_limiter is custom
-

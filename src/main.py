@@ -11,7 +11,7 @@ async def main():
 
     # Orchestrator now owns fetcher construction via FetcherFactory.
     orchestrator = FetchOrchestrator()
-    
+
     # Run
     articles = await orchestrator.fetch_all()
     print(f"✅ Fetched {len(articles)} articles total")

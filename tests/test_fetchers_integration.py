@@ -3,7 +3,6 @@
 import asyncio
 import time
 
-
 from src.fetchers.hackernews_fetcher import HackerNewsFetcher
 from src.fetchers.rss_fetcher import RSSFetcher
 

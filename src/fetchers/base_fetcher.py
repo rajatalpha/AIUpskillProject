@@ -1,10 +1,11 @@
 """Base fetcher interface."""
+
 from abc import ABC, abstractmethod
 from typing import List
 
+from src.models.article import Article
 from src.storage.markdown_storage import MarkdownStorage
 from src.transformers.article_transformer import ArticleTransformer
-from src.models.article import Article
 
 
 class BaseFetcher(ABC):
@@ -50,7 +51,7 @@ class BaseFetcher(ABC):
         pass
 
     # Common methods (same for all fetchers)
-    
+
     async def fetch(self, *args, **kwargs) -> List[Article]:
         """
         Legacy public entry point retained for backward compatibility.

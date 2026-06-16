@@ -5,9 +5,9 @@ from typing import List
 
 import aiohttp
 
+from src.fetchers.base_fetcher import BaseFetcher
 from src.models.article import Article
 from src.strategies.rate_limit_strategy import SemaphoreStrategy
-from src.fetchers.base_fetcher import BaseFetcher
 
 
 class HackerNewsFetcher(BaseFetcher):
